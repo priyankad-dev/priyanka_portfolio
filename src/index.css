@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light theme (opt-in via the nav toggle). */
+  :root {
+    --c-bg: 255 255 255;
+    --c-surface: 246 248 250;
+    --c-elevated: 255 255 255;
+    --c-text: 17 24 39;
+    --c-muted: 91 102 115;
+    --c-accent: 15 118 110;      /* teal-700 — AA on white */
+    --c-accent-soft: 204 251 241;
+    --c-border: 229 231 235;
+  }
+
+  /* Dark is the default: applied by the pre-paint script in index.html. */
+  .dark {
+    --c-bg: 11 15 20;
+    --c-surface: 20 26 33;
+    --c-elevated: 26 33 41;
+    --c-text: 230 237 243;
+    --c-muted: 150 162 173;      /* AA on #0B0F14 */
+    --c-accent: 45 212 191;      /* teal-400 */
+    --c-accent-soft: 19 78 74;
+    --c-border: 34 44 55;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-bg text-content font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Visible, consistent focus ring in both themes. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-bg rounded-sm;
+  }
+
+  ::selection {
+    @apply bg-accent/25;
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-shell px-6;
+  }
+
+  .card {
+    @apply rounded-xl border border-line bg-surface;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-md border border-line bg-elevated px-2.5 py-1
+           font-mono text-[0.75rem] leading-none text-muted;
+  }
+
+  .link-underline {
+    @apply text-accent underline decoration-accent/35 underline-offset-4
+           transition-colors hover:decoration-accent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
