@@ -3,41 +3,49 @@
 @tailwind utilities;
 
 @layer base {
-  /* Light theme (opt-in via the nav toggle). */
+  /**
+   * Light theme (opt-in via the nav toggle).
+   * Designed on its own terms — it is not an inversion of the dark palette.
+   */
   :root {
     --c-bg: 255 255 255;
-    --c-surface: 246 248 250;
+    --c-surface: 245 247 249;
     --c-elevated: 255 255 255;
-    --c-text: 17 24 39;
-    --c-muted: 91 102 115;
-    --c-accent: 15 118 110;      /* teal-700 — AA on white */
+    --c-text: 15 23 42;
+    --c-muted: 85 96 109;        /* 6.3:1 on white */
+    --c-accent: 15 118 110;      /* teal-700 — 5.5:1 on white */
+    --c-accent-2: 14 116 144;    /* soft blue-green */
     --c-accent-soft: 204 251 241;
-    --c-border: 229 231 235;
+    --c-border: 226 232 239;
+    --glow-strength: 0.1;        /* glows stay very faint on white */
   }
 
-  /* Dark is the default: applied by the pre-paint script in index.html. */
+  /* Dark is the default, applied pre-paint by the inline script in index.html. */
   .dark {
-    --c-bg: 11 15 20;
-    --c-surface: 20 26 33;
-    --c-elevated: 26 33 41;
-    --c-text: 230 237 243;
-    --c-muted: 150 162 173;      /* AA on #0B0F14 */
-    --c-accent: 45 212 191;      /* teal-400 */
+    --c-bg: 10 13 17;            /* near-black charcoal */
+    --c-surface: 17 22 28;
+    --c-elevated: 22 28 36;
+    --c-text: 232 237 242;       /* off-white, never pure white */
+    --c-muted: 152 164 176;      /* cool gray — 7.6:1 on the bg */
+    --c-accent: 45 212 191;      /* teal-400 — 10:1 on the bg */
+    --c-accent-2: 88 184 196;    /* soft blue-green */
     --c-accent-soft: 19 78 74;
-    --c-border: 34 44 55;
+    --c-border: 34 44 56;
+    --glow-strength: 0.5;
   }
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 5.5rem;
   }
 
   body {
     @apply bg-bg text-content font-sans antialiased;
     text-rendering: optimizeLegibility;
+    /* Nothing may scroll the page sideways. */
+    overflow-x: hidden;
   }
 
-  /* Visible, consistent focus ring in both themes. */
   :focus-visible {
     @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-bg rounded-sm;
   }
@@ -49,21 +57,162 @@
 
 @layer components {
   .shell {
-    @apply mx-auto w-full max-w-shell px-6;
+    @apply mx-auto w-full max-w-shell px-5 sm:px-6 lg:px-8;
   }
 
+  /* Base card. Add `.card-hover` for the lift-on-hover treatment. */
   .card {
     @apply rounded-xl border border-line bg-surface;
   }
 
+  .card-hover {
+    @apply transition-[transform,box-shadow,border-color] duration-300 ease-out
+           hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-lift;
+  }
+
+  /**
+   * Chips. Sized for readability — these carry the backend specialization, so
+   * they are real UI, not fine print.
+   */
   .chip {
-    @apply inline-flex items-center rounded-md border border-line bg-elevated px-2.5 py-1
-           font-mono text-[0.75rem] leading-none text-muted;
+    @apply inline-flex items-center rounded-lg border border-line bg-elevated px-3 py-1.5
+           font-mono text-[0.875rem] leading-none text-muted
+           transition-[transform,border-color,color] duration-200 ease-out
+           hover:-translate-y-px hover:border-muted/50 hover:text-content;
+  }
+
+  /* Accented chip: primary-stack items, hero pills, project responsibilities. */
+  .chip-accent {
+    @apply inline-flex items-center rounded-lg border border-accent/35 bg-accent/[0.09] px-3 py-1.5
+           font-mono text-[0.875rem] leading-none text-accent
+           transition-[transform,border-color,background-color] duration-200 ease-out
+           hover:-translate-y-px hover:border-accent/70 hover:bg-accent/[0.14];
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-[0.9375rem]
+           font-semibold tracking-tight
+           transition-[transform,background-color,border-color,color,box-shadow]
+           duration-300 ease-out;
+  }
+
+  .btn-primary {
+    @apply btn bg-accent text-bg hover:-translate-y-0.5;
+    box-shadow: 0 6px 20px -8px rgb(var(--c-accent) / 0.6);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 12px 28px -10px rgb(var(--c-accent) / 0.75);
+  }
+
+  .btn-secondary {
+    @apply btn border border-line bg-elevated text-content shadow-card
+           hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent hover:shadow-lift;
+  }
+
+  /* Small monospace label used above section headings. */
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-label text-accent;
   }
 
   .link-underline {
     @apply text-accent underline decoration-accent/35 underline-offset-4
            transition-colors hover:decoration-accent;
+  }
+
+  /**
+   * Hero portrait. A static gradient hairline plus a soft teal cast — the
+   * photograph itself is never rotated, distorted or continuously moved.
+   * Entrance is handled once by <Reveal variant="scale">; hover adds a 1.02
+   * lift and brightens the border.
+   */
+  .portrait-frame {
+    position: relative;
+    border-radius: 1.625rem;
+    padding: 2px;
+    background: linear-gradient(
+      145deg,
+      rgb(var(--c-accent) / 0.7),
+      rgb(var(--c-accent-2) / 0.35) 45%,
+      rgb(var(--c-border)) 80%
+    );
+    box-shadow: 0 24px 60px -30px rgb(var(--c-accent) / var(--glow-strength));
+    transition:
+      transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 400ms ease-out,
+      background 400ms ease-out;
+  }
+
+  .portrait-frame:hover {
+    transform: scale(1.02);
+    background: linear-gradient(
+      145deg,
+      rgb(var(--c-accent) / 0.95),
+      rgb(var(--c-accent-2) / 0.55) 45%,
+      rgb(var(--c-border)) 85%
+    );
+    box-shadow: 0 30px 70px -28px rgb(var(--c-accent) / calc(var(--glow-strength) + 0.2));
+  }
+
+  .portrait-frame > img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 1.5rem;
+  }
+
+  /**
+   * Masthead name. Set tight and large; the two words stack, with the second
+   * indented to break the left edge and give the block an editorial axis.
+   */
+  .masthead {
+    font-size: clamp(2.5rem, 6.4vw, 4.5rem);
+    font-weight: 700;
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+  }
+
+  .masthead-indent {
+    margin-left: clamp(0.75rem, 2.4vw, 2.75rem);
+  }
+
+  /**
+   * Indexed technical label. Compact, bordered, monospace index over the name —
+   * a spec sheet entry rather than a colourful tag.
+   */
+  .tech-card {
+    @apply relative rounded-lg border border-line bg-elevated/70 px-4 py-3
+           transition-[transform,border-color,background-color] duration-300 ease-out
+           hover:-translate-y-0.5 hover:border-accent/50 hover:bg-elevated;
+  }
+}
+
+@layer utilities {
+  /**
+   * Faint engineering grid behind the hero, faded on every edge so it never
+   * meets a hard boundary or competes with the text.
+   */
+  .grid-texture {
+    background-image: linear-gradient(to right, rgb(var(--c-border) / 0.6) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--c-border) / 0.6) 1px, transparent 1px);
+    background-size: 62px 62px;
+    -webkit-mask-image: radial-gradient(ellipse 72% 62% at 50% 28%, #000 30%, transparent 82%);
+    mask-image: radial-gradient(ellipse 72% 62% at 50% 28%, #000 30%, transparent 82%);
+  }
+
+  /* Soft radial cast used behind the portrait. Purely decorative. */
+  .radial-glow {
+    background: radial-gradient(
+      circle at center,
+      rgb(var(--c-accent) / calc(var(--glow-strength) * 0.42)),
+      transparent 68%
+    );
+  }
+
+  /* Gives the accented headline words a faint halo in dark mode. */
+  .accent-glow {
+    text-shadow: 0 0 34px rgb(var(--c-accent) / calc(var(--glow-strength) * 0.7));
   }
 }
 
@@ -77,5 +226,15 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  /* Transform is motion, not just timing — remove the lifts entirely. */
+  .card-hover:hover,
+  .btn-primary:hover,
+  .btn-secondary:hover,
+  .chip:hover,
+  .chip-accent:hover,
+  .tech-card:hover,
+  .portrait-frame:hover {
+    transform: none !important;
   }
 }

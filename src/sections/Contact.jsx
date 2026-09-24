@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, MapPin } from 'lucide-react'
+import { ArrowUpRight, Github, Linkedin, Mail, MapPin } from 'lucide-react'
 import Section from '../components/Section'
 import Reveal from '../components/Reveal'
 import { contact } from '../data/content'
@@ -33,29 +33,37 @@ export default function Contact() {
     <Section
       id="contact"
       eyebrow="07 / Contact"
-      title="Get in touch"
+      title="Let’s connect"
       lead="Open to Java backend roles. Email is the fastest way to reach me."
+      className="bg-surface"
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {links.map(({ icon: Icon, label, value, href, external }, i) => (
-          <Reveal key={label} delay={i * 60}>
+          <Reveal key={label} delay={i * 70}>
             <a
               href={href}
               {...(external ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
-              className="card flex h-full flex-col gap-2 bg-elevated p-5 transition-colors hover:border-accent/50"
+              className="card card-hover group flex h-full flex-col gap-2 bg-elevated p-5"
             >
-              <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-accent">
+              <span className="inline-flex items-center gap-2 eyebrow">
                 <Icon size={14} aria-hidden="true" />
                 {label}
               </span>
-              <span className="break-all text-sm text-content">{value}</span>
+              <span className="flex items-start justify-between gap-2">
+                <span className="break-all text-sm text-content">{value}</span>
+                <ArrowUpRight
+                  size={15}
+                  aria-hidden="true"
+                  className="mt-0.5 shrink-0 text-muted transition-colors group-hover:text-accent"
+                />
+              </span>
             </a>
           </Reveal>
         ))}
 
-        <Reveal delay={180}>
+        <Reveal delay={210}>
           <div className="card flex h-full flex-col gap-2 bg-elevated p-5">
-            <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-accent">
+            <span className="inline-flex items-center gap-2 eyebrow">
               <MapPin size={14} aria-hidden="true" />
               Location
             </span>

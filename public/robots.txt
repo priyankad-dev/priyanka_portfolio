@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://priyanka-kashyap.vercel.app/sitemap.xml

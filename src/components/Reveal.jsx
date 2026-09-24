@@ -1,42 +1,39 @@
-import { useEffect, useRef, useState } from 'react'
+import useInView from '../hooks/useInView'
+
+const VARIANTS = {
+  rise: 'animate-rise-in',
+  left: 'animate-slide-in-left',
+  right: 'animate-slide-in-right',
+  scale: 'animate-scale-in',
+}
 
 /**
- * Fades-and-rises its children the first time they scroll into view, once only.
- * Reduced-motion users get the content immediately with no transform.
+ * Animates its children in once — on mount for above-the-fold content
+ * (`immediate`), otherwise the first time they scroll into view.
+ *
+ * `variant` picks the entrance and `delay` staggers siblings. Reduced-motion
+ * users get the content immediately with no transform (see useInView).
  */
-export default function Reveal({ children, delay = 0, as: Tag = 'div', className = '' }) {
-  const ref = useRef(null)
-  const [shown, setShown] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduced || typeof IntersectionObserver === 'undefined') {
-      setShown(true)
-      return
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShown(true)
-          observer.disconnect()
-        }
-      },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.05 },
-    )
-
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
+export default function Reveal({
+  children,
+  variant = 'rise',
+  delay = 0,
+  immediate = false,
+  as: Tag = 'div',
+  className = '',
+  ...rest
+}) {
+  const [ref, inView] = useInView()
+  // Hero elements are already on screen at load; waiting for an observer
+  // callback would delay the opening sequence by a frame or two.
+  const shown = immediate || inView
 
   return (
     <Tag
       ref={ref}
       style={shown && delay ? { animationDelay: `${delay}ms` } : undefined}
-      className={`${shown ? 'animate-rise' : 'opacity-0'} ${className}`}
+      className={`${shown ? VARIANTS[variant] ?? VARIANTS.rise : 'opacity-0'} ${className}`}
+      {...rest}
     >
       {children}
     </Tag>

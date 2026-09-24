@@ -3,11 +3,11 @@ import Footer from './components/Footer'
 import Hero from './sections/Hero'
 import Stats from './sections/Stats'
 import About from './sections/About'
-import Skills from './sections/Skills'
 import Experience from './sections/Experience'
 import Projects from './sections/Projects'
-import Expertise from './sections/Expertise'
-import Credentials from './sections/Credentials'
+import Skills from './sections/Skills'
+import Achievements from './sections/Achievements'
+import Education from './sections/Education'
 import Contact from './sections/Contact'
 
 export default function App() {
@@ -16,7 +16,7 @@ export default function App() {
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50
-                   focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:font-medium focus:text-bg"
+                   focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:font-medium focus:text-bg"
       >
         Skip to content
       </a>
@@ -27,11 +27,11 @@ export default function App() {
         <Hero />
         <Stats />
         <About />
-        <Expertise />
-        <Skills />
         <Experience />
         <Projects />
-        <Credentials />
+        <Skills />
+        <Achievements />
+        <Education />
         <Contact />
       </main>
 

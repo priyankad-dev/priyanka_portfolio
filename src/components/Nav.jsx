@@ -17,9 +17,9 @@ export default function Nav() {
 
   // Highlight the nav link for the section currently in view.
   useEffect(() => {
-    const sections = navLinks
-      .map(({ id }) => document.getElementById(id))
-      .filter(Boolean)
+    if (typeof IntersectionObserver === 'undefined') return
+
+    const sections = navLinks.map(({ id }) => document.getElementById(id)).filter(Boolean)
     if (!sections.length) return
 
     const observer = new IntersectionObserver(
@@ -44,48 +44,73 @@ export default function Nav() {
     return () => window.removeEventListener('keydown', onKey)
   }, [open])
 
+  const condensed = scrolled || open
+
   return (
     <header
-      className={`sticky top-0 z-40 border-b transition-colors ${
-        scrolled || open
-          ? 'border-line bg-bg/85 backdrop-blur-md supports-[backdrop-filter]:bg-bg/70'
+      className={`sticky top-0 z-40 border-b transition-[background-color,border-color,backdrop-filter] duration-300 ${
+        condensed
+          ? 'border-line bg-bg/80 backdrop-blur-xl supports-[backdrop-filter]:bg-bg/65'
           : 'border-transparent bg-transparent'
       }`}
     >
-      <nav className="shell flex h-16 items-center justify-between gap-4" aria-label="Primary">
-        <a
-          href="#main"
-          className="font-mono text-sm font-medium tracking-tight text-content hover:text-accent"
-        >
-          <span className="text-accent">{'<'}</span>
-          {profile.name.split(' ')[0]}
-          <span className="text-accent">{' />'}</span>
+      <nav
+        aria-label="Primary"
+        className={`shell flex items-center justify-between gap-4 transition-[height] duration-300 ${
+          condensed ? 'h-16' : 'h-20'
+        }`}
+      >
+        {/* Brand mark: a teal dot that pops in once on load, then the name. */}
+        <a href="#top" className="group relative flex shrink-0 items-center gap-2.5 py-1">
+          <span
+            aria-hidden="true"
+            className="h-[7px] w-[7px] shrink-0 animate-dot-in rounded-full bg-accent"
+          />
+          <span
+            className="text-[1.125rem] font-semibold uppercase tracking-[0.05em] text-content
+                       transition-colors duration-300 group-hover:text-accent sm:text-[1.1875rem]"
+          >
+            {profile.name}
+          </span>
+          <span
+            aria-hidden="true"
+            className="absolute -bottom-0.5 left-0 h-px w-0 bg-accent
+                       transition-[width] duration-300 ease-out group-hover:w-full"
+          />
         </a>
 
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-1 lg:flex">
           {navLinks.map(({ id, label }) => (
             <li key={id}>
               <a
                 href={`#${id}`}
                 aria-current={active === id ? 'true' : undefined}
-                className={`rounded-md px-3 py-2 text-sm transition-colors hover:text-accent ${
-                  active === id ? 'text-accent' : 'text-muted'
-                }`}
+                className={`relative block px-3.5 py-2 text-[0.9375rem] transition-colors duration-200
+                            hover:text-accent ${active === id ? 'text-accent' : 'text-muted'}`}
               >
                 {label}
+                <span
+                  aria-hidden="true"
+                  className={`absolute inset-x-3.5 bottom-0.5 h-0.5 origin-left rounded-full bg-accent
+                              transition-transform duration-300 ease-out ${
+                                active === id ? 'scale-x-100' : 'scale-x-0'
+                              }`}
+                />
               </a>
             </li>
           ))}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <ThemeToggle />
 
           <a
             href={resume.href}
-            download
-            className="hidden items-center gap-2 rounded-md border border-accent/40 bg-accent/10 px-3 py-2
-                       text-sm font-medium text-accent transition-colors hover:bg-accent/20 sm:inline-flex"
+            download={resume.downloadName}
+            className="hidden items-center gap-2 rounded-lg border border-accent/40 bg-accent/10 px-4 py-2
+                       text-[0.9375rem] font-medium text-accent transition-[background-color,border-color,transform]
+                       duration-300 ease-out hover:-translate-y-px hover:border-accent/60 hover:bg-accent/20
+                       sm:inline-flex"
           >
             <Download size={15} aria-hidden="true" />
             Resume
@@ -97,37 +122,39 @@ export default function Nav() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? 'Close menu' : 'Open menu'}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-line
-                       bg-elevated text-muted transition-colors hover:text-accent md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line
+                       bg-elevated text-muted transition-colors hover:border-accent/50 hover:text-accent lg:hidden"
           >
-            {open ? <X size={17} aria-hidden="true" /> : <Menu size={17} aria-hidden="true" />}
+            {open ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
           </button>
         </div>
       </nav>
 
       {open && (
-        <div id="mobile-menu" className="border-t border-line bg-bg md:hidden">
+        <div id="mobile-menu" className="border-t border-line bg-bg lg:hidden">
           <ul className="shell flex flex-col py-2">
             {navLinks.map(({ id, label }) => (
               <li key={id}>
                 <a
                   href={`#${id}`}
                   onClick={() => setOpen(false)}
-                  className={`block rounded-md px-2 py-3 text-sm transition-colors hover:text-accent ${
-                    active === id ? 'text-accent' : 'text-muted'
+                  className={`block border-l-2 py-3 pl-3 text-[0.9375rem] transition-colors ${
+                    active === id
+                      ? 'border-accent text-accent'
+                      : 'border-transparent text-muted hover:text-accent'
                   }`}
                 >
                   {label}
                 </a>
               </li>
             ))}
-            <li className="px-2 py-3">
+            <li className="py-3 pl-3">
               <a
                 href={resume.href}
-                download
+                download={resume.downloadName}
                 onClick={() => setOpen(false)}
-                className="inline-flex items-center gap-2 rounded-md border border-accent/40 bg-accent/10
-                           px-3 py-2 text-sm font-medium text-accent"
+                className="inline-flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/10
+                           px-4 py-2 text-[0.9375rem] font-medium text-accent"
               >
                 <Download size={15} aria-hidden="true" />
                 {resume.label}

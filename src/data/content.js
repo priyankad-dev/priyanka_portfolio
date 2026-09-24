@@ -1,10 +1,10 @@
 /**
  * Single source of truth for every string on the site.
  *
- * Everything here is taken from the résumé PDF in this repo
- * (public/Priyanka_Kashyap_Java_Backend_Developer_Resume.pdf).
- * Nothing is invented — no extra technologies, metrics, repositories or awards.
- * If the résumé changes, change this file; the components read from it.
+ * Everything factual here is taken from the résumé PDF in this repo
+ * (public/resume.pdf). Nothing is invented — no extra technologies, metrics,
+ * repositories or awards. If the résumé changes, change this file; the
+ * components read from it and hardcode nothing.
  */
 
 export const profile = {
@@ -17,16 +17,40 @@ export const profile = {
   experienceLabel: '3+ Years Experience',
   location: 'Pune, India',
   stack: ['Java', 'Spring Boot', 'REST APIs', 'Microservices'],
+
+  // Hero copy.
+  headline: 'Building reliable backend systems with Java & Spring Boot.',
   heroDescription:
-    'I build scalable backend systems, RESTful APIs and transactional business workflows with Java and Spring Boot, with a focus on reliability, performance and clean API design.',
+    'Software Engineer with 3+ years of experience building REST APIs, transactional workflows and backend systems using Java, Spring Boot, JPA/Hibernate and MySQL.',
+  // Small pills under the hero text — the specialization at a glance.
+  heroPills: ['Java', 'Spring Boot', 'REST APIs', 'JPA / Hibernate', 'MySQL'],
+
   summary:
     'I’m a Java Backend Developer with 3+ years of experience designing and developing scalable RESTful APIs using Java, Spring Boot and Microservices architecture. I have worked on backend systems involving transactional workflows, database optimization, caching, authentication and production issue resolution. My experience includes MySQL, PostgreSQL, Redis, Resilience4j Circuit Breaker, JWT authentication and transaction management.',
+
+  // The real uploaded photograph, resized and re-encoded only.
+  // Source of record: src/assets/profile-source.png. Set to `null` to remove.
+  photo: {
+    src: '/profile.webp',
+    src2x: '/profile@2x.webp',
+    alt: 'Priyanka Kashyap - Java Backend Developer',
+  },
 }
 
+/** Visual labels for the About section — not ratings, not percentages. */
+export const engineeringFocus = [
+  'Backend Development',
+  'API Design',
+  'Database Optimization',
+  'Security',
+  'Performance',
+]
+
 export const resume = {
-  // Served from /public. Filename is the professional one, so it keeps that
-  // name when a recruiter saves it.
-  href: '/Priyanka_Kashyap_Java_Backend_Developer_Resume.pdf',
+  href: '/resume.pdf',
+  // The `download` attribute renames the file on save, so the URL stays short
+  // while recruiters get a professionally named PDF in their downloads folder.
+  downloadName: 'Priyanka_Kashyap_Java_Backend_Developer_Resume.pdf',
   label: 'Download Resume',
 }
 
@@ -44,11 +68,15 @@ export const contact = {
   },
 }
 
+/**
+ * `count`/`suffix` drive the count-up animation; `unit` is the static word
+ * rendered beside the number. Every figure is résumé-supported.
+ */
 export const stats = [
-  { value: '3+', unit: 'Years', label: 'Professional Experience' },
-  { value: '20+', unit: 'APIs', label: 'RESTful APIs Engineered' },
-  { value: '20%', unit: 'Faster', label: 'API Response Time' },
-  { value: '15+', unit: '', label: 'Production Issues Resolved' },
+  { count: 3, suffix: '+', unit: 'Years', label: 'Professional Experience' },
+  { count: 20, suffix: '+', unit: 'APIs', label: 'RESTful APIs' },
+  { count: 20, suffix: '%', unit: '', label: 'API Response-Time Improvement' },
+  { count: 15, suffix: '+', unit: '', label: 'Production Issues Resolved' },
 ]
 
 export const experience = [
@@ -67,6 +95,13 @@ export const experience = [
       // Résumé bullet is missing its verb ("15+ production issues, increasing…"); "Resolved" restores it.
       'Resolved 15+ production issues, improving system stability and reducing incidents by 25%.',
       'Collaborated with cross-functional teams to define API contracts and improve system integration.',
+    ],
+    // Pulled from the bullets above for visual emphasis — no new numbers.
+    metrics: [
+      { value: '20+', label: 'REST APIs' },
+      { value: '20%', label: 'Faster responses' },
+      { value: '15+', label: 'Production issues' },
+      { value: '25%', label: 'Fewer incidents' },
     ],
   },
 ]
@@ -101,6 +136,8 @@ export const projects = [
         text: 'Secured APIs using Spring Security with JWT authentication and authorization.',
       },
     ],
+    // Headline result, restated from the contributions above.
+    result: { value: '50,000+', label: 'monthly records processed' },
     tech: [
       'Java',
       'Spring Boot',
@@ -142,6 +179,7 @@ export const projects = [
         text: 'Integrated Spring Security and JWT for role-based access control and secure inventory operations.',
       },
     ],
+    result: { value: '25%', label: 'reduction in manual effort' },
     tech: [
       'Java',
       'Spring Boot',
@@ -158,9 +196,10 @@ export const projects = [
 ]
 
 /**
- * `primary` groups carry the specialization and are shown first with accent
- * treatment; `supporting` groups are real experience but are deliberately not
- * presented as the specialization.
+ * `primary` groups carry the specialization and are rendered prominently.
+ * `supporting` groups are real résumé experience, grouped under "Also worked
+ * with" so PostgreSQL, Redis, Resilience4j, AWS and ReactJS never read as the
+ * specialization. Every item here appears on the résumé.
  */
 export const skillGroups = [
   {
@@ -184,18 +223,14 @@ export const skillGroups = [
     ],
   },
   {
-    name: 'Databases & Performance',
+    name: 'Databases',
     tier: 'primary',
-    items: [
-      'MySQL',
-      'PostgreSQL',
-      'Redis',
-      'SQL',
-      'Joins',
-      'Indexing',
-      'Query Optimization',
-      'Caching',
-    ],
+    items: ['MySQL', 'SQL', 'Joins', 'Indexing', 'Query Optimization'],
+  },
+  {
+    name: 'Performance & Caching',
+    tier: 'supporting',
+    items: ['PostgreSQL', 'Redis', 'Caching'],
   },
   {
     name: 'Reliability',
@@ -287,13 +322,14 @@ export const additional = [
 
 export const navLinks = [
   { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
   { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Projects' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'achievements', label: 'Achievements' },
+  { id: 'education', label: 'Education' },
 ]
 
 export const footer = {
-  line: `© ${new Date().getFullYear()} Priyanka Kashyap`,
-  built: 'Built with React, Vite and Tailwind CSS',
+  stackLine: 'Java • Spring Boot • REST APIs • MySQL',
+  copyright: `© ${new Date().getFullYear()} Priyanka Kashyap`,
 }
