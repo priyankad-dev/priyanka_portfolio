@@ -5,7 +5,7 @@
   "outputDirectory": "dist",
   "headers": [
     {
-      "source": "/resume.pdf",
+      "source": "/Priyanka-Kashyap-Resume.pdf",
       "headers": [
         {
           "key": "Cache-Control",

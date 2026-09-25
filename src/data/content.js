@@ -47,7 +47,7 @@ export const engineeringFocus = [
 ]
 
 export const resume = {
-  href: '/resume.pdf',
+  href: "/Priyanka-Kashyap-Resume.pdf",
   // The `download` attribute renames the file on save, so the URL stays short
   // while recruiters get a professionally named PDF in their downloads folder.
   downloadName: 'Priyanka_Kashyap_Java_Backend_Developer_Resume.pdf',
