@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github, Lock } from 'lucide-react'
+import { ArrowUpRight, Award, Github, Lock } from 'lucide-react'
 import Section from '../components/Section'
 import Reveal from '../components/Reveal'
 import { projects } from '../data/content'
@@ -44,6 +44,22 @@ export default function Projects() {
                   >
                     <Github size={12} aria-hidden="true" />
                     GitHub
+                    <ArrowUpRight size={11} aria-hidden="true" />
+                  </a>
+                )}
+
+                {project.certificate && (
+                  <a
+                    href={project.certificate}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${project.title} hackathon certificate (PDF, opens in a new tab)`}
+                    className="inline-flex items-center gap-1.5 rounded-md border border-accent/25
+                               bg-accent/[0.07] px-2.5 py-1 font-mono text-[0.7rem] text-accent
+                               transition-colors hover:bg-accent/[0.14]"
+                  >
+                    <Award size={12} aria-hidden="true" />
+                    Certificate
                     <ArrowUpRight size={11} aria-hidden="true" />
                   </a>
                 )}

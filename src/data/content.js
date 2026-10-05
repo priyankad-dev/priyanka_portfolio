@@ -106,6 +106,8 @@ export const experience = [
   },
 ]
 
+const HACKATHON_CERTIFICATE = '/Priyanka-Kashyap-Hackathon-Certificate.pdf'
+
 export const projects = [
   {
     title: 'Auto CRM',
@@ -207,6 +209,7 @@ export const projects = [
     subtitle: 'Voice-First AI Assistant',
     badge: 'Hackathon Project',
     repo: 'https://github.com/priyankad-dev/gramini-ai',
+    certificate: HACKATHON_CERTIFICATE,
     description:
       'Voice-first AI assistant for rural communities, built as part of a 2-member team with a focus on accessibility and multilingual interaction.',
     contributions: [
@@ -321,6 +324,10 @@ export const achievements = [
     title: 'Top 9 / 180 Teams — National-Level Hackathon',
     period: '2026',
     text: 'IIIT Pune × IIT Bombay ACM SIGCHI — developed Gramini AI as part of a 2-member team.',
+    certificate: {
+      href: HACKATHON_CERTIFICATE,
+      label: 'View certificate',
+    },
   },
   {
     title: 'Pacesetter Award',

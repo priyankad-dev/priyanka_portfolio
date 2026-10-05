@@ -1,4 +1,4 @@
-import { Award } from 'lucide-react'
+import { Award, ExternalLink } from 'lucide-react'
 import Section from '../components/Section'
 import Reveal from '../components/Reveal'
 import { achievements } from '../data/content'
@@ -27,6 +27,19 @@ export default function Achievements() {
                 <span className="font-mono text-xs text-accent">{item.period}</span>
               </div>
               <p className="mt-1.5 text-sm leading-relaxed text-muted">{item.text}</p>
+              {item.certificate && (
+                <a
+                  href={item.certificate.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-accent
+                             hover:underline underline-offset-4"
+                >
+                  {item.certificate.label}
+                  <ExternalLink size={14} aria-hidden="true" />
+                  <span className="sr-only">(PDF, opens in a new tab)</span>
+                </a>
+              )}
             </div>
           </Reveal>
         ))}

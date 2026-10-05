@@ -5,7 +5,7 @@
   "outputDirectory": "dist",
   "headers": [
     {
-      "source": "/Priyanka-Kashyap-Resume.pdf",
+      "source": "/Priyanka-Kashyap-(Resume|Hackathon-Certificate).pdf",
       "headers": [
         {
           "key": "Cache-Control",
