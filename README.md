@@ -23,7 +23,7 @@ so updating the site means editing that one file.
 | `contact` | Email, phone, location, LinkedIn, GitHub |
 | `stats` | The four-figure strip |
 | `experience` | Professional Experience section |
-| `projects` | The two project cards |
+| `projects` | Project cards (`repo: null` = private, shows a lock badge) |
 | `skillGroups`, `focusLine` | Technical Skills — `tier` controls prominence |
 | `expertise` | "What I work with" cards (inside About) |
 | `engineeringFocus` | Focus labels in About |
@@ -41,33 +41,32 @@ defensible in an interview:
   positioning; **"Software Engineer"** is the real employment title and is the only thing
   shown under Experience. Don't merge them.
 - **No repository links on Auto CRM or Factory ERP.** Both are private company work and
-  carry a `Professional Project` badge instead. Never add a GitHub URL to them.
+  carry a `Professional Project` badge instead. Never add a GitHub URL to them. URL Shortener
+  and Gramini AI are public and link to their repositories.
 - **No invented technologies.** JPQL, Java Streams, Multithreading, JavaScript, HTML/CSS,
-  Kubernetes, Terraform, Azure, GCP, Kafka and RabbitMQ are absent on purpose — they are
+  Kubernetes, Terraform, Azure, GCP and RabbitMQ are absent on purpose — they are
   not on the résumé. Add one to the site only after adding it to the résumé.
 - **No skill percentage bars.** `skillGroups` uses a `tier` field (`primary` /
-  `supporting`) instead, so Redis, Resilience4j, PostgreSQL and AWS appear as real
+  `supporting`) instead, so Redis, Resilience4j, PostgreSQL, AWS and Kafka appear as real
   experience without being presented as the specialization.
 - **Metrics come from the résumé verbatim:** 20+ APIs, 20% faster response time, 15+
-  production issues, 25% incident reduction, 50,000+ monthly records, 1,000+ product
-  records, 25% manual-effort reduction.
+  production issues, 25% incident reduction, 5,000+ monthly records, 1,000+ product
+  records, 25% manual-effort reduction, Top 9 / 180 hackathon teams.
 
 ## Résumé
 
-Served from `public/resume.pdf`. The download button carries
-`download="Priyanka_Kashyap_Java_Backend_Developer_Resume.pdf"`, so the URL stays short
-while recruiters get a professionally named file in their downloads folder. To swap the
-résumé, replace `public/resume.pdf`; to change the saved name, edit `resume.downloadName`
-in `content.js`.
+Served from `public/Priyanka-Kashyap-Resume.pdf` (rev. 2026-10-05). The download button
+carries `download="Priyanka_Kashyap_Java_Backend_Developer_Resume.pdf"`, so the URL stays
+short while recruiters get a professionally named file in their downloads folder. To swap
+the résumé, replace that PDF; to change the saved name, edit `resume.downloadName` in
+`content.js`.
 
-Known issues in the current PDF worth fixing at the source (the site already works around
-the first one):
+Known issues in the current PDF worth fixing at the source:
 
-- `• 15+ production issues, increasing system stability…` is missing its verb. The site
-  renders **"Resolved** 15+ production issues…".
-- The Auto CRM API bullet ends with a double period: `optimized response time..`
+- The Factory ERP workflow bullet repeats a word: `production tracking and and reducing…`
+  (the site drops the duplicate).
 - The last Experience bullet has no closing period.
-- The original filename reads **"Bakend"** rather than "Backend".
+- The URL Shortener repository is spelled `url-shortner`; the site links to it as-is.
 
 ## Before deploying
 

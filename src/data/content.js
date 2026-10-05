@@ -2,7 +2,7 @@
  * Single source of truth for every string on the site.
  *
  * Everything factual here is taken from the résumé PDF in this repo
- * (public/resume.pdf). Nothing is invented — no extra technologies, metrics,
+ * (public/Priyanka-Kashyap-Resume.pdf, rev. 2026-10-05). Nothing is invented — no extra technologies, metrics,
  * repositories or awards. If the résumé changes, change this file; the
  * components read from it and hardcode nothing.
  */
@@ -16,17 +16,17 @@ export const profile = {
   company: 'Samyotech Software Solution',
   experienceLabel: '3+ Years Experience',
   location: 'Pune, India',
-  stack: ['Java', 'Spring Boot', 'REST APIs', 'Microservices'],
+  stack: ['Java', 'Spring Boot', 'Microservices', 'REST APIs', 'AWS', 'Spring Data JPA', 'MySQL'],
 
   // Hero copy.
   headline: 'Building reliable backend systems with Java & Spring Boot.',
   heroDescription:
-    'Software Engineer with 3+ years of experience building REST APIs, transactional workflows and backend systems using Java, Spring Boot, JPA/Hibernate and MySQL.',
+    'Java Backend Developer with around 3 years of experience building scalable, high-performance REST APIs and resilient backend systems using Java, Spring Boot, Microservices, JPA/Hibernate and MySQL.',
   // Small pills under the hero text — the specialization at a glance.
-  heroPills: ['Java', 'Spring Boot', 'REST APIs', 'JPA / Hibernate', 'MySQL'],
+  heroPills: ['Java', 'Spring Boot', 'Microservices', 'REST APIs', 'JPA / Hibernate', 'MySQL'],
 
   summary:
-    'I’m a Java Backend Developer with 3+ years of experience designing and developing scalable RESTful APIs using Java, Spring Boot and Microservices architecture. I have worked on backend systems involving transactional workflows, database optimization, caching, authentication and production issue resolution. My experience includes MySQL, PostgreSQL, Redis, Resilience4j Circuit Breaker, JWT authentication and transaction management.',
+    'I’m a Java Backend Developer with around 3 years of experience designing and developing scalable, high-performance RESTful APIs using Java, Spring Boot and Microservices architecture. I build resilient backend systems with Redis caching, Resilience4j Circuit Breaker and database optimization techniques to improve performance and reliability. I’m proficient in MySQL, PostgreSQL, JWT authentication and transaction management, with strong problem-solving abilities in Agile environments.',
 
   // The real uploaded photograph, resized and re-encoded only.
   // Source of record: src/assets/profile-source.png. Set to `null` to remove.
@@ -112,32 +112,33 @@ export const projects = [
     subtitle: 'Automotive Dealership Backend Platform',
     // Source code is private company work — no repository link, ever.
     badge: 'Professional Project',
+    repo: null,
     description:
       'Backend platform for automotive dealership operations, focused on scalable REST APIs, lead-to-booking workflows, data validation, security and performance optimization.',
     contributions: [
       {
         lead: 'API development',
-        text: 'Designed and developed scalable RESTful APIs using Spring Boot, processing 50,000+ monthly records.',
+        text: 'Designed and developed scalable RESTful APIs using Spring Boot, processing 5,000+ monthly records.',
       },
       {
         lead: 'Transactional processing',
-        text: 'Built transactional workflows using Spring Data JPA and Hibernate for lead-to-booking operations.',
+        text: 'Implemented transactional workflows using Spring Data JPA and Hibernate, ensuring data consistency across lead-to-booking operations.',
       },
       {
         lead: 'Performance optimization',
-        text: 'Improved API performance through pagination, sorting and optimized MySQL queries.',
+        text: 'Improved API performance by implementing pagination, sorting and optimized MySQL queries, reducing report generation time.',
       },
       {
         lead: 'Data validation',
-        text: 'Applied Bean Validation to enforce API-level constraints and improve data integrity.',
+        text: 'Applied Bean Validation to enforce API-level constraints and enhance data integrity.',
       },
       {
         lead: 'Security',
-        text: 'Secured APIs using Spring Security with JWT authentication and authorization.',
+        text: 'Secured APIs using Spring Security with JWT authentication and authorization, preventing unauthorized access.',
       },
     ],
     // Headline result, restated from the contributions above.
-    result: { value: '50,000+', label: 'monthly records processed' },
+    result: { value: '5,000+', label: 'monthly records processed' },
     tech: [
       'Java',
       'Spring Boot',
@@ -147,58 +148,90 @@ export const projects = [
       'Spring Security',
       'JWT',
       'REST APIs',
-      'Maven',
-      'Git',
     ],
   },
   {
     title: 'Factory ERP',
     subtitle: 'Production & Inventory Management',
     badge: 'Professional Project',
+    repo: null,
     description:
-      'Backend system supporting production and inventory management with transactional stock operations, entity relationships, production workflows and role-based security.',
+      'Backend system supporting production and inventory management with transactional stock operations, entity relationships and production lifecycle workflows.',
     contributions: [
       {
-        lead: 'Modular architecture',
-        text: 'Developed a modular Spring Boot system handling 1,000+ product records.',
+        lead: 'System development',
+        text: 'Developed a modular production and inventory management system using Spring Boot, handling 1,000+ product records.',
       },
       {
         lead: 'Data modeling',
-        text: 'Designed complex One-to-Many and Many-to-Many entity relationships using Spring Data JPA.',
+        text: 'Designed One-to-Many and Many-to-Many entity relationships using Spring Data JPA for efficient data handling.',
       },
       {
         lead: 'Transaction management',
-        text: 'Implemented Spring Transaction Management for atomic stock operations and prevention of negative inventory issues.',
+        text: 'Implemented Spring Transaction Management to ensure atomic stock operations and prevent negative inventory issues.',
       },
       {
         lead: 'Workflow automation',
-        text: 'Designed state-driven production workflows with controlled transitions (Pending → In Progress → Completed), reducing manual effort by 25%.',
-      },
-      {
-        lead: 'Security',
-        text: 'Integrated Spring Security and JWT for role-based access control and secure inventory operations.',
+        text: 'Designed production lifecycle workflows with controlled state transitions (Pending → In Progress → Completed), streamlining production tracking and reducing manual effort by 25%.',
       },
     ],
     result: { value: '25%', label: 'reduction in manual effort' },
-    tech: [
-      'Java',
-      'Spring Boot',
-      'Spring Data JPA',
-      'Hibernate',
-      'MySQL',
-      'Spring Security',
-      'JWT',
-      'REST APIs',
-      'Maven',
-      'Git',
+    tech: ['Java', 'Spring Boot', 'Spring Data JPA', 'Hibernate', 'MySQL', 'Spring Security', 'JWT'],
+  },
+  {
+    title: 'URL Shortener',
+    subtitle: 'Backend Service',
+    badge: 'Personal Project',
+    repo: 'https://github.com/priyankad-dev/url-shortner',
+    description:
+      'RESTful URL-shortening service with persistent URL mapping, short-link redirection, Redis caching and circuit-breaker resilience.',
+    contributions: [
+      {
+        lead: 'API development',
+        text: 'Built a RESTful URL-shortening service using Spring Boot with persistent URL mapping and short-link redirection.',
+      },
+      {
+        lead: 'Caching',
+        text: 'Implemented Redis caching to reduce repeated database access and improve URL resolution performance.',
+      },
+      {
+        lead: 'Resilience',
+        text: 'Integrated Resilience4j Circuit Breaker and fallback mechanisms to improve service reliability during dependency failures.',
+      },
     ],
+    result: null,
+    tech: ['Java', 'Spring Boot', 'Spring Data JPA', 'PostgreSQL', 'Redis', 'Resilience4j'],
+  },
+  {
+    title: 'Gramini AI',
+    subtitle: 'Voice-First AI Assistant',
+    badge: 'Hackathon Project',
+    repo: 'https://github.com/priyankad-dev/gramini-ai',
+    description:
+      'Voice-first AI assistant for rural communities, built as part of a 2-member team with a focus on accessibility and multilingual interaction.',
+    contributions: [
+      {
+        lead: 'AI integration',
+        text: 'Built a voice-first AI assistant for rural communities as part of a 2-member team, focusing on accessibility and multilingual interaction.',
+      },
+      {
+        lead: 'LLM integration',
+        text: 'Integrated Gemini API with multilingual voice interaction and API-based information retrieval for conversational assistance.',
+      },
+      {
+        lead: 'Reliable AI',
+        text: 'Designed the application around verified data sources and fallback mechanisms to improve reliability of AI-generated responses.',
+      },
+    ],
+    result: { value: 'Top 9 / 180', label: 'teams at a national-level hackathon' },
+    tech: ['React', 'Tailwind CSS', 'Python', 'FastAPI', 'Gemini API', 'Web Speech API'],
   },
 ]
 
 /**
  * `primary` groups carry the specialization and are rendered prominently.
  * `supporting` groups are real résumé experience, grouped under "Also worked
- * with" so PostgreSQL, Redis, Resilience4j, AWS and ReactJS never read as the
+ * with" so PostgreSQL, Redis, Resilience4j, AWS, Kafka and ReactJS never read as the
  * specialization. Every item here appears on the résumé.
  */
 export const skillGroups = [
@@ -240,7 +273,7 @@ export const skillGroups = [
   {
     name: 'Tools',
     tier: 'supporting',
-    items: ['Maven', 'Git', 'GitHub', 'Jenkins', 'Docker', 'AWS', 'Postman'],
+    items: ['Maven', 'Git', 'GitHub', 'Jenkins', 'Docker', 'AWS (Basic)', 'Postman', 'Apache Kafka'],
   },
   {
     name: 'Frontend',
@@ -284,6 +317,11 @@ export const expertise = [
 ]
 
 export const achievements = [
+  {
+    title: 'Top 9 / 180 Teams — National-Level Hackathon',
+    period: '2026',
+    text: 'IIIT Pune × IIT Bombay ACM SIGCHI — developed Gramini AI as part of a 2-member team.',
+  },
   {
     title: 'Pacesetter Award',
     period: 'Q3 FY25',
